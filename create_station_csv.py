@@ -1,6 +1,7 @@
 # %%
 import pandas as pd
 import pypinyin
+## TODO 根据 Fulldomain_hires.nc文件，对经纬度进行校正
 # %%
 flnm_csv = '/home/fengx20/project/hydro/Draw/station_latlon.csv'
 df = pd.read_csv(flnm_csv)

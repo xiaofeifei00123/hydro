@@ -25,7 +25,8 @@ class Runoff():
         # self.path = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake/'
         # self.flnm_latlon = '/home/fengx20/project/hydro/test3/DATA/gis_100m/wrfhydro_gis/latlon_big.nc'
         self.path = '/home/fengx20/project/hydro/test_ground/RUN/2002/'
-        self.flnm_latlon = '/home/fengx20/project/hydro/test_ground/Hydro_Routing/wrf_hydro_gis_preprocessor/wrfhydro_gis/latlon.nc'
+        # self.flnm_latlon = '/home/fengx20/project/hydro/test_ground/Hydro_Routing/wrf_hydro_gis_preprocessor/wrfhydro_gis/latlon.nc'
+        self.flnm_latlon = '/home/fengx20/project/hydro/test_ground/Hydro_Routing/outputs/latlon.nc'
         self.path_surface = self.path+'surface_runoff.nc'
         self.path_subsurface = self.path+'subsurface_runoff.nc'
 

@@ -3,43 +3,28 @@ import xarray as xr
 import numpy as np
 # %%
 
-
-
-# flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140000.CHRTOUT_GRID1'
-flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140000.GWOUT_DOMAIN1'
-# flnm = '/home/fengx20/project/hydro/test3/RUN/grid/DOMAIN/Fulldom_hires.nc'
-flnm = '/home/fengx20/project/hydro/test3/RUN/grid/DOMAIN/geo_em.d01.nc'
-flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140100.CHRTOUT_DOMAIN1'
-flnm = '/home/fengx20/project/hydro/test3/RUN/route_01/202207140000.CHRTOUT_DOMAIN1'
-# flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140000.GWOUT_DOMAIN1'
-# flnm = '/home/fengx20/project/hydro/test3/RUN/grid/DOMAIN/hydro2dtbl.nc'
-# flnm = '/home/fengx20/project/hydro/test2/RUN/lake/201908010000.CHRTOUT_DOMAIN1'
-# flnm = '/home/fengx20/project/hydro/test2/RUN/route/201908010000.CHRTOUT_DOMAIN1'
-# flnm = '/home/fengx20/project/hydro/test_case/croto_ny/Gridded_no_lakes/201108260000.CHRTOUT_DOMAIN1'
-# flnm = '/home/fengx20/project/hydro/test_case/croto_ny/Reach/201108260100.CHRTOUT_DOMAIN1'
+flnm = '/home/fengx20/project/hydro/test_ground/RUN/200201010000.CHRTOUT_DOMAIN1'
 ds = xr.open_dataset(flnm)
-ds
 print(ds.latitude.values.max(), ds.latitude.values.min())
 print(ds.longitude.values.max(), ds.longitude.values.min())
-# %%
 
 # %%
 lon_list = [
-    107.72644,
-    109.20191,
-    109.76097,
-    # 105.6,
-    109.839,
-    108.13333,
+    # 105.66667,
+    # 105.68333,
+    106.1256,
+    # 107.05,
+    107.75,
+    # 104.883333,
 ]
 
 lat_list = [
-    34.289957,
-    34.430699,
-    34.582697,
-    # 34.6333,
-    35.005,
-    35.000,
+    # 34.9,
+    # 34.583333,
+    35.6216,
+    # 34.3833,a
+    34.3,
+    # 34.73333,
 ]
 
 def get_nearest_latlon(lat0, lon0):
@@ -53,7 +38,8 @@ def get_nearest_latlon(lat0, lon0):
     # flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140000.CHRTOUT_DOMAIN1'
     # flnm = '/home/fengx20/project/hydro/test2/RUN/lake/201908010000.CHRTOUT_DOMAIN1'
     # flnm = '/home/fengx20/project/hydro/test3/RUN/grid_new_sta/202207140000.CHRTOUT_DOMAIN1'
-    flnm = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake/202207140000.CHRTOUT_DOMAIN1'
+    # flnm = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake/202207140000.CHRTOUT_DOMAIN1'
+    flnm = '/home/fengx20/project/hydro/test_ground/RUN/200201010000.CHRTOUT_DOMAIN1'
     # print('***'*10)
     # print(lat0, lon0)
     ds = xr.open_dataset(flnm)

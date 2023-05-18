@@ -117,3 +117,5 @@ db = ds_RT['sfcheadsubrt'].squeeze()
 # %%
 dc = regrid_coarse2fine(da, db)
 dc
+# %%
+flnm = '/'
