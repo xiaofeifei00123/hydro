@@ -1,48 +1,62 @@
+"""
+因为有时候指定的预报格点不在模式的河道格点上，
+所以需要选择离预测格点最近的河道格点位置，作为河道格点在模式中的位置，
+这样才会输出预报格点的径流等变量，所以本程序需要以下文件：
+1. 预测的站点位置信息，这个是原始的真实的观测  sta.csv
+2. 模式运行一个时间步长得到的CHAROUT_DOMAIN文件
+"""
 # %%
 import xarray as xr
 import numpy as np
+import pandas as pd
 # %%
 
-flnm = '/home/fengx20/project/hydro/test_ground/RUN/200201010000.CHRTOUT_DOMAIN1'
-ds = xr.open_dataset(flnm)
-print(ds.latitude.values.max(), ds.latitude.values.min())
-print(ds.longitude.values.max(), ds.longitude.values.min())
+
+
+# %%
+flnm_CHRTOUT = '/home/fengx20/project/hydro/test_ground/RUN/200309020000.CHRTOUT_DOMAIN1'
+ds = xr.open_dataset(flnm_CHRTOUT)
+
+# %%
+### 需要测量的站点, 原始的经纬度信息
+csv_path = '/home/fengx20/project/hydro/src/sta.csv'
+df = pd.read_csv(csv_path)
+df
+# %%
+# lat = df.iloc[0].loc['LAT']
+# df.shape
+for i in range(df.shape[0]):
+    # print(i)
+    lat = df.iloc[i].loc['LAT']
+    lon = df.iloc[i].loc['LAT']
+    lon1, lat1 = get_nearest_latlon(lon, lat)
+    print(lon1)
+    # print(lat, lon)
+
+
 
 # %%
 lon_list = [
-    # 105.66667,
-    # 105.68333,
+    105.66667,
+    105.68333,
     106.1256,
-    # 107.05,
+    107.05,
     107.75,
-    # 104.883333,
-]
+    104.883333,
+    ]
 
 lat_list = [
-    # 34.9,
-    # 34.583333,
+    34.9,
+    34.583333,
     35.6216,
-    # 34.3833,a
+    34.3833,
     34.3,
-    # 34.73333,
+    34.73333,
 ]
 
-def get_nearest_latlon(lat0, lon0):
-    # flnm = '/home/fengx20/project/hydro/test2/RUN/route/201908010000.CHANOBS_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test2/RUN/route/201908010000.CHRTOUT_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/route/202207100000.CHRTOUT_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/route_01/202207140000.CHRTOUT_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/route_new_cmorph/202207100000.CHRTOUT_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140000.CHRTOUT_GRID1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140000.CHRTOUT_GRID1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/grid/202207140000.CHRTOUT_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test2/RUN/lake/201908010000.CHRTOUT_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/grid_new_sta/202207140000.CHRTOUT_DOMAIN1'
-    # flnm = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake/202207140000.CHRTOUT_DOMAIN1'
-    flnm = '/home/fengx20/project/hydro/test_ground/RUN/200201010000.CHRTOUT_DOMAIN1'
-    # print('***'*10)
-    # print(lat0, lon0)
-    ds = xr.open_dataset(flnm)
+def get_nearest_latlon(lon0, lat0, flnm_CHRTOUT):
+    # flnm = '/home/fengx20/project/hydro/test_ground/RUN/200207010000.CHRTOUT_DOMAIN1'
+    ds = xr.open_dataset(flnm_CHRTOUT)
     da = ds['streamflow']
     lat1 = ds['streamflow'].latitude.values
     lon1 = ds['streamflow'].longitude.values
@@ -57,30 +71,8 @@ def get_nearest_latlon(lat0, lon0):
     print(da[idx[1]].longitude.values,',', da[idx[1]].latitude.values)
     print(da[idx[2]].longitude.values,',', da[idx[2]].latitude.values)
     print('**end**')
-    # print(da[idx].latitude.values)
-    # print('***'*10)
+    return da[idx[0]].longitude.values, da[idx[0]].latitude.values
 
-# lat_list_new = []
-# lon_list_new = []
-
-for lat, lon in zip(lat_list, lon_list):
-    # print(lat, lon)
-    get_nearest_latlon(lat, lon)
-    # lat_list_new.append(lat_n)
-    # lon_list_new.append(lon_n)
-# print(lon_list_new)
+# for lat, lon in zip(lat_list, lon_list):
+    # get_nearest_latlon(lon, lat)
 # %%
-flnm1 = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake/*CHANOBS*'
-ds1 = xr.open_mfdataset(flnm1)
-ds1.load()
-# %%
-import matplotlib.pyplot as plt
-# for id in range(0,5):
-id = 0
-da = ds1['streamflow'].isel(feature_id=id)
-print(da.longitude.values, da.latitude.values)
-da.plot(label=id)
-# plt.legend()
-
-# %%
-# ds

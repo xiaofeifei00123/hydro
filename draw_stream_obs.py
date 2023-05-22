@@ -49,10 +49,10 @@ ds['streamflow']
 # %%
 
 # flnm2 = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake_0710-0720_1.1rough/*CHANOBS*'
-flnm2 = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake/*CHANOBS*'
+# flnm2 = '/home/fengx20/project/hydro/test3/RUN/Grid_nolake/*CHANOBS*'
 # flnm2 = '/home/fengx20/project/hydro/test3/RUN/grid_new_sta2/*CHANOBS*'
-ds2 = xr.open_mfdataset(flnm2)
-ds2.load()
+# ds2 = xr.open_mfdataset(flnm2)
+# ds2.load()
 
 #%%  观测数据
 ## 径流
