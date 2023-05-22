@@ -1,3 +1,6 @@
+"""
+利用CLDAS降水数据制作降水强迫数据
+"""
 import xarray as xr
 import pandas as pd
 import numpy as np
@@ -19,7 +22,8 @@ def regrid_rain():
     flnm_rain = '/home/fengx20/project/hydro/test3/DATA/rain/data/rain_obs.nc'
     ds_rain = xr.open_dataset(flnm_rain)
     ds = ds_rain
-    regridder = xe.Regridder(ds, ds_out, "bilinear")
+    #regridder = xe.Regridder(ds, ds_out, "bilinear")
+    regridder = xe.Regridder(ds, ds_gldas, "bilinear")
     # da = regridder(ds['PRCP'])
     ds2 = regridder(ds)
 

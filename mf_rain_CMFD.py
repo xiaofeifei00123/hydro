@@ -1,3 +1,8 @@
+"""
+利用CMFD降水数据, 制作降水强迫数据,
+1. 重新插值到WRF格点上
+2. 换算单位为mm/s
+"""
 # %%
 import xarray as xr
 import pandas as pd
