@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import xarray as xr
 # %%
 def get_runoff(flnm):
     """
@@ -46,15 +47,33 @@ def draw(df):
     ax.set_xticklabels(monthly_ticks.strftime('%Y-%m'), rotation=45)
 
     plt.show()
-    # %%
-    # pd.to_datetime()
-
-
 
 if __name__ == "__main__":
-    flnm = '/home/fengx20/project/hydro/data/output/frxst_pts_out.txt'
-    # flnm = '/home/fengx20/project/hydro/test_ground/RUN/frxst_pts_out.txt'
+    # flnm = '/home/fengx20/project/hydro/data/output/frxst_pts_out.txt'
+    flnm = '/home/fengx20/project/hydro/test_ground/RUN/frxst_pts_out.txt'
+    flnm_obs_station = '/home/fengx20/project/hydro/test_ground/Hydro_Routing/data/sta1.csv'
     df = get_runoff(flnm)
+    df = df.loc[~df.index.duplicated(keep='first')]
+    ds = xr.Dataset(df)
+
+    df_os = pd.read_csv(flnm_obs_station, sep=',')
+    # print(df_os)
+
+    
+    # df_os
+    for var in list(ds.data_vars):
+        # fid = int(41100000+var)
+        fid = int(var)
+        # ds[var].attrs['STATION'] = 
+        # print(fid)
+        ds[var].attrs['STATION'] = df_os[df_os['FID']==fid]['STATION'].values[0].strip()
+        ds[var].attrs['Name'] = df_os[df_os['FID']==fid]['Name'].values[0].strip()
+        ds[var].attrs['LON'] = df_os[df_os['FID']==fid]['LON'].values[0].round(4)
+        ds[var].attrs['LAT'] = df_os[df_os['FID']==fid]['LAT'].values[0].round(4)
+        ds = ds.rename({var:ds[var].attrs['STATION']})
+    flnm_save = '/home/fengx20/project/hydro/src/data/frxst2.nc'
+    ds.to_netcdf(flnm_save)    
+
 
     ### 筛选某个时间范围
     # start_date = pd.to_datetime('2003-02-02')
@@ -63,5 +82,15 @@ if __name__ == "__main__":
     # df = filtered_df
     # %%
     # df[300].max()
-    draw(df)
+    # draw(df)
     # %%
+
+    # flnm_save = '/home/fengx20/project/hydro/src/data/frxst.nc'
+    # ds = xr.open_dataset(flnm_save)
+    # ds.sel(Time=slice('2003-07-01', '2003-09-01'))
+    # # %%
+    # # t = pd.date_range('2003-01-02', '2003-10-18', freq='1d')
+    # # ds.Time.sel(Time=t)
+    # # ds.Time
+    # # t.shape
+    # ds.Time

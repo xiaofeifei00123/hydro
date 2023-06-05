@@ -174,7 +174,7 @@ class Draw(object):
         }        
         self.map_dic = {
             'proj':ccrs.PlateCarree(),
-            'extent':[103.85, 110.15, 33.55, 37.37],
+            'extent':[103.85, 108, 33.55, 36.5],
             'extent_interval_lat':1,
             'extent_interval_lon':2,
         }

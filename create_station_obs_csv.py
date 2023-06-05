@@ -8,7 +8,8 @@ import pandas as pd
 import pypinyin
 ## TODO 根据 Fulldomain_hires.nc文件，对经纬度进行校正
 # %%
-flnm_csv = '/home/fengx20/project/hydro/Draw/station_latlon.csv'
+# flnm_csv = '/home/fengx20/project/hydro/Draw/station_latlon.csv'
+flnm_csv = '/home/fengx20/project/hydro/src/data/station_latlon.csv'
 df = pd.read_csv(flnm_csv)
 
 ## 获取需要的列
@@ -33,13 +34,13 @@ sta_list = [
     # '秦渡',
     # '黑峪口',
     '秦安',
-    '天水',
+    # '天水',
     # '柳林',
     # '涝峪口',
     # '耀县',
-    '隆德',
+    # '隆德',
     # '北道',
-    '华县',
+    # '华县',
     '林家村',
     '魏家堡',
     '武山',
@@ -58,5 +59,5 @@ df5 = df4.loc[idx_list]
 # df4[df4['STATION'].isin(['Hua Xian', 'Zhuang tou'])]
 
 ### 保存数据
-csv_path = '/home/fengx20/project/hydro/Draw/sta.csv'
+csv_path = '/home/fengx20/project/hydro/test_ground/Hydro_Routing/data/sta_station.csv'
 df5.to_csv(csv_path)

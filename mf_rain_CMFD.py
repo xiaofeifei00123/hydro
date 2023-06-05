@@ -48,10 +48,11 @@ def regird_one(flnm_LD, flnm_PR):
         dss.to_netcdf(fs)
 
 if __name__ == "__main__":
-    flnm_LD = '/home/fengx20/project/hydro/test_ground/MetForcing/output_files/2002010103.LDASIN_DOMAIN1'
+    flnm_LD = '/home/fengx20/project/hydro/test_ground/MetForcing/output_files/2000010103.LDASIN_DOMAIN1'
     # flnm_PR = '/home/fengx20/project/hydro/test_ground/RainForcing/CMFD_precip/prec_ITPCAS-CMFD_V0106_B-01_03hr_010deg_200203.nc'
+    # path = '/home/fengx20/project/hydro/test_ground/RainForcing/CMFD_precip/'
     path = '/home/fengx20/project/hydro/test_ground/RainForcing/CMFD_precip/'
-    keyvar = '*.nc'
+    keyvar = '*2003*.nc'
     fl_list= os.popen('ls {}/{}*'.format(path, keyvar))  # 打开一个管道
     fl_list= fl_list.read().split()
     for fl in fl_list:
@@ -60,20 +61,20 @@ if __name__ == "__main__":
 # return fl_list
 #%%
 
-path = '/home/fengx20/project/hydro/test_ground/RainForcing/output/'
-# keyvar = '2009*'
-for keyvar in ['2010*', '2011*', '2012*']:
+# path = '/home/fengx20/project/hydro/test_ground/RainForcing/output/'
+# # keyvar = '2009*'
+# for keyvar in ['2010*', '2011*', '2012*']:
 
-    fl_list= os.popen('ls {}/{}'.format(path, keyvar))  # 打开一个管道
-    fl_list= fl_list.read().split()
+#     fl_list= os.popen('ls {}/{}'.format(path, keyvar))  # 打开一个管道
+#     fl_list= fl_list.read().split()
 
-    for fl in fl_list:
-        a, b, c = fl.split('.')
-        d = 'PRECIP_FORCING'
-        newname = a+'.'+d+'.'+c
-        # print(newname)
-        os.system('mv %s %s'%(fl, newname))
-    print('yes')
-    # print(fl)
-    # regird_one(flnm_LD, fl)
-    # ft = str(t.dt.strftime('%Y%m%d%H%M.PRECIP_FORCING.nc').values)
+#     for fl in fl_list:
+#         a, b, c = fl.split('.')
+#         d = 'PRECIP_FORCING'
+#         newname = a+'.'+d+'.'+c
+#         # print(newname)
+#         os.system('mv %s %s'%(fl, newname))
+#     print('yes')
+#     # print(fl)
+#     # regird_one(flnm_LD, fl)
+#     # ft = str(t.dt.strftime('%Y%m%d%H%M.PRECIP_FORCING.nc').values)

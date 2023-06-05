@@ -39,7 +39,7 @@ def combine_streamflow_allsta():
     flnm_wjb = '/home/fengx20/project/hydro/data/output/2010/渭河魏家堡站逐日平均流量表.xls'
     flnm_qa= '/home/fengx20/project/hydro/data/output/2010/葫芦河秦安站逐日平均流量表.xls'
     flnm_ts= '/home/fengx20/project/hydro/data/output/2010/藉河天水站逐日平均流量表.xls'
-    sta_list = ['ws', 'ld', 'ljc', 'wjb', 'qa', 'ts']
+    sta_list = ['Wu Shan', 'Long De', 'Lin Jiacun', 'Wei Jiabao', 'Qin An', 'Tian Shui']
     station_name_list = ['武山', '隆德', '林家村', '魏家堡', '秦安', '天水']
     flnm_list = [flnm_ws, flnm_ld, flnm_ljc, flnm_wjb, flnm_qa, flnm_ts]
     da_list = []

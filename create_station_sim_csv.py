@@ -10,50 +10,6 @@ import xarray as xr
 import numpy as np
 import pandas as pd
 # %%
-
-
-
-# %%
-flnm_CHRTOUT = '/home/fengx20/project/hydro/test_ground/RUN/200309020000.CHRTOUT_DOMAIN1'
-ds = xr.open_dataset(flnm_CHRTOUT)
-
-# %%
-### 需要测量的站点, 原始的经纬度信息
-csv_path = '/home/fengx20/project/hydro/src/sta.csv'
-df = pd.read_csv(csv_path)
-df
-# %%
-# lat = df.iloc[0].loc['LAT']
-# df.shape
-for i in range(df.shape[0]):
-    # print(i)
-    lat = df.iloc[i].loc['LAT']
-    lon = df.iloc[i].loc['LAT']
-    lon1, lat1 = get_nearest_latlon(lon, lat)
-    print(lon1)
-    # print(lat, lon)
-
-
-
-# %%
-lon_list = [
-    105.66667,
-    105.68333,
-    106.1256,
-    107.05,
-    107.75,
-    104.883333,
-    ]
-
-lat_list = [
-    34.9,
-    34.583333,
-    35.6216,
-    34.3833,
-    34.3,
-    34.73333,
-]
-
 def get_nearest_latlon(lon0, lat0, flnm_CHRTOUT):
     # flnm = '/home/fengx20/project/hydro/test_ground/RUN/200207010000.CHRTOUT_DOMAIN1'
     ds = xr.open_dataset(flnm_CHRTOUT)
@@ -73,6 +29,59 @@ def get_nearest_latlon(lon0, lat0, flnm_CHRTOUT):
     print('**end**')
     return da[idx[0]].longitude.values, da[idx[0]].latitude.values
 
-# for lat, lon in zip(lat_list, lon_list):
-    # get_nearest_latlon(lon, lat)
-# %%
+
+
+def test1():
+    lon_list = [
+        105.66667,
+        105.68333,
+        106.1256,
+        107.05,
+        107.75,
+        104.883333,
+        ]
+
+    lat_list = [
+        34.9,
+        34.583333,
+        35.6216,
+        34.3833,
+        34.3,
+        34.73333,
+    ]
+
+
+    flnm_CHRTOUT = '/home/fengx20/project/hydro/test_ground/RUN/2005/200501010000.CHRTOUT_DOMAIN1'
+    for lat, lon in zip(lat_list, lon_list):
+        get_nearest_latlon(lon, lat, flnm_CHRTOUT)
+if __name__ == "__main__":
+
+    flnm_CHRTOUT = '/home/fengx20/project/hydro/test_ground/RUN/2005/200501020000.CHRTOUT_DOMAIN1'
+    ds = xr.open_dataset(flnm_CHRTOUT)
+
+    ### 需要测量的站点, 原始的经纬度信息
+    # csv_path = '/home/fengx20/project/hydro/src/data/sta.csv'
+    csv_path = '/home/fengx20/project/hydro/test_ground/Hydro_Routing/data/sta_station.csv'
+    df = pd.read_csv(csv_path)
+    print(df)
+    df2 = df.copy(deep=True)
+    for i in range(df.shape[0]):
+        # print(i)
+        lat = df.iloc[i].loc['LAT']
+        lon = df.iloc[i].loc['LON']
+        lon1, lat1 = get_nearest_latlon(lon, lat, flnm_CHRTOUT)
+        df2.iloc[i].loc['LAT'] = lat1
+        df2.iloc[i].loc['LON'] = lon1
+        # print(lon1)
+        # print(lat, lon)
+    # print(df)
+    # %%
+    # df2-df
+    df2
+    # lat
+    # lat1
+    # df2
+    # ds
+    # df
+    # lon1
+    # df2
